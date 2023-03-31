@@ -5,8 +5,10 @@ Project: Otimização de etapas em cartografia de paisagens
 
 #imports
 import pandas as pd
+import pandera as pa
+import re
 import geopandas as gpd
-from shapely.geometry import point
+from shapely.geometry import Point
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -49,14 +51,59 @@ def open_csv():
 #Função para criação de arquivo do tipo shapefile baseando-se em um dataframe existente que será passado como parâmetro de entrada
 def creat_shape(df_entrada):
 
-    geometry = [Point(xy) for xy in zip(df_entrada['longitude'], df_entrada['latitude'])]
+    #Criação da geometria a ser utilizada na produção do arquivo shape, neste caso a geometria é do tipo Point, onde são passados como x,y respectivamente as coordenadas de longitude e latitude
+    #extraidas do csv (OBS: o nome das colunas deve ser igual ao nome apresentado na coluna do dataframe de entrada, por isso utilizar o arquivo csv definido como padrão de entrada no programa)
+    geometry = [Point(xy) for xy in zip(df_entrada['LONGITUDE'], df_entrada['LATITUDE'])]
 
+    #criação de dataframe contendo dados geográficos passando os parâmetros de geometria e dataframe de entrada da função
     gdf_point = gpd.GeoDataFrame(df_entrada, geometry= geometry)
 
-    gdf_point.to_file(r'C:\Users\beto\Desktop\Estudos_ETL\projeto\shape_teste\arquivo_shapefile.shp', driver='ESRI Shapefile')
+    #chamada do método .to_file para criação do arquivo com base no geodataframe criado anteriormente
+    gdf_point.to_file(r'C:\TCC_ETL_CART_PAISAGENS\teste_abertura_csv.shp', driver='ESRI Shapefile')
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#Função para validar os dados do data frame
+def validar_dados_df(df_validacao):
 
 
-df_teste = pd.read_csv( r'C:\Users\beto\Desktop\Estudos_ETL\projeto\teste_shape.csv',sep=';',encoding='ISO-8859-1')
+    #Alteração dos dados de latitude e longitude para adoção do ponto como marcador de unidade no dataframe fornecido a função
+    df_validacao['Longitude'] = df_validacao['Longitude'].str.replace(',','.')
 
-creat_shape(df_teste)
+
+    schema = pa.DataFrameSchema(
+
+        columns= {
+        
+            'Parcela': pa.Column(pa.Int),
+            'Latitude': pa.Column(pa.Float),
+            'Longitude': pa.Column(pa.Float),
+            'Fisionomia': pa.Column(pa.String),
+            'Complementos': pa.Column(pa.String),
+            'Ambiente': pa.Column(pa.String),
+            'Lenhosa dominante': pa.Column(pa.String),
+            'Herbacea dominante': pa.Column(pa.String),
+            'Estiagem': pa.Column(pa.String, nullable=True),
+            'Erosao': pa.Column(pa.String, nullable=True),
+            'Fogo': pa.Column(pa.String, nullable=True),
+            'Desmatamento': pa.Column(pa.String, nullable=True),
+            'Pastoreio/herbivoria': pa.Column(pa.String, nullable=True),
+            'Inundacao': pa.Column(pa.String, nullable=True),
+            'Observacao': pa.Column(pa.String, nullable=True)
+        
+            }
+
+
+    )
+
+
+
+#trecho de código exclusivamente utilizado para testas as funções implementadas
+df_teste = pd.read_csv( r'C:\TCC_ETL_CART_PAISAGENS\teste_abertura_csv.csv',sep=',',encoding='ISO-8859-1')
+
+df_teste['LONGITUDE'] = df_teste['LONGITUDE'].str.replace(',', '.')
+df_teste['LATITUDE'] = df_teste['LATITUDE'].str.replace(',', '.')
+
+
+
 
