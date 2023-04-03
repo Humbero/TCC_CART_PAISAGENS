@@ -19,5 +19,5 @@ print(df_abertura.head(4))
 df_validado = fun.validar_dados_df(df_abertura)
 
 print(df_validado.head(5))
+print(df_validado.dtypes)
 
-fun.creat_shape(df_validado)

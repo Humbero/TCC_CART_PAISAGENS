@@ -41,7 +41,7 @@ def open_csv():
 
     #carga do csv em um DataFrame 
     #OBS: foi utilizado o encoding ISO-8859-1 pois o utf-8 não estava conseguindo decodificar os caracteres especiais da língua portuguesa.
-    df_main = pd.read_csv(caminho_final, encoding='utf-16', sep=',')
+    df_main = pd.read_csv(caminho_final, encoding='lantin1', sep=',')
 
     #retornando ao main o dataframe carregado
     return df_main
@@ -91,11 +91,61 @@ def validar_dados_df(df_validacao):
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+#Função para composição de sugestões de nomenclatura as parcelas coletadas em campo seguindo o método constante no livro de cartografia de paisagens (Cavalcanti,L.C.S, 2018)
+def paisagem_nome(df_entrada):
+
+    df_nomear = df_entrada
+
+    #etapa 01 criação de coluna no dataframe para acomodação da composição do nome da paisagem
+    df_nomear['paisagem'] = None
+
+    #etapa 02 preenchimento do data frame como a composição do nome da paisagem
+    for i, row in df_nomear.interrows():
+
+        #etapa 03 estrutura de decisão para definição das duas perturbações de maior impacto na paisagem
+        
+        #estruturação das variaveis do dataframe para montar estrutura de seleção e conversão
+        estiagem = df_nomear['estiagem'][i]
+        erosao = df_nomear['eorasão'][i]
+        fogo = df_nomear['fogo'][i]
+        desmatamento = df_nomear['desmatamento'][i]
+        pastoreio = df_nomear['pastoreio/herbivoria'][i]
+        inundacao = df_nomear['inundação'][i]
+        perturbacao_final = 0
 
 
+        ##teste de classificação para as duas perturbações mais influentes, começando pelo caso 0, onde nenhuma perturbação foi identificada
+        if estiagem == 0 and erosao == 0 and fogo == 0 and desmatamento == 0 and pastoreio == 0 and inundacao == 0:
 
-#trecho de código exclusivamente utilizado para testas as funções implementadas
+            perturbacao_final = 'sem perturbações visíveis'
+        
+        else:
+            #para facilitar a seleção entre as 6 variáveis foi criado um dicionário que posteriomente será classificado e extraído os dois maiores valores
+            seletor = {'estiagem': estiagem, 'erosão': erosao,'fogo': fogo, 'desmatamento': desmatamento, 'pastoreio/herbivoria': pastoreio, 'inundação': inundacao}
 
+            seletor_ordenado = sorted(seletor.items(), key=lambda x: x[1], reverse=True)
 
+            selec_final = seletor_ordenado[:2]
+        
+            #for para percorrer o dicionário contendo as perturbações de maior influência e substituir os valores numéricos da intensidade das pertubações
+            #por valores de texto, bem como, adicionar esta composição a variável perturbacao_final
+            for chave, n in selec_final.items():
 
+                if n == 1:
+                    texto_add = 'leve'
 
+                elif n == 2:
+                    texto_add = 'moderada'
+
+                elif n == 3:
+                    texto_add = 'severa'
+
+                else:
+                    texto_add = 'ausente'
+
+            perturbacao_final += f'{chave} {texto_add}, '
+
+            perturbacao_final = perturbacao_final[:-2]            
+
+        #etapa 04 composição do nome e aplicação no dataframe em sua respectiva coluna 
+        #df_nomear['paisagem'][i] = f'{df_nomear['fisionomia'][i]+ }'
