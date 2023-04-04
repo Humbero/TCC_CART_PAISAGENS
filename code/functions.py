@@ -100,18 +100,18 @@ def paisagem_nome(df_entrada):
     df_nomear['paisagem'] = None
 
     #etapa 02 preenchimento do data frame como a composição do nome da paisagem
-    for i, row in df_nomear.interrows():
+    for i, row in df_nomear.iterrows():
 
         #etapa 03 estrutura de decisão para definição das duas perturbações de maior impacto na paisagem
         
         #estruturação das variaveis do dataframe para montar estrutura de seleção e conversão
         estiagem = df_nomear['estiagem'][i]
-        erosao = df_nomear['eorasão'][i]
+        erosao = df_nomear['erosão'][i]
         fogo = df_nomear['fogo'][i]
         desmatamento = df_nomear['desmatamento'][i]
         pastoreio = df_nomear['pastoreio/herbivoria'][i]
         inundacao = df_nomear['inundação'][i]
-        perturbacao_final = 0
+        perturbacao_final = ''
 
 
         ##teste de classificação para as duas perturbações mais influentes, começando pelo caso 0, onde nenhuma perturbação foi identificada
@@ -126,10 +126,11 @@ def paisagem_nome(df_entrada):
             seletor_ordenado = sorted(seletor.items(), key=lambda x: x[1], reverse=True)
 
             selec_final = seletor_ordenado[:2]
+            selec_final_dicionario = dict(selec_final)
         
             #for para percorrer o dicionário contendo as perturbações de maior influência e substituir os valores numéricos da intensidade das pertubações
             #por valores de texto, bem como, adicionar esta composição a variável perturbacao_final
-            for chave, n in selec_final.items():
+            for chave, n in selec_final_dicionario.items():
 
                 if n == 1:
                     texto_add = 'leve'
@@ -148,4 +149,8 @@ def paisagem_nome(df_entrada):
             perturbacao_final = perturbacao_final[:-2]            
 
         #etapa 04 composição do nome e aplicação no dataframe em sua respectiva coluna 
-        #df_nomear['paisagem'][i] = f'{df_nomear['fisionomia'][i]+ }'
+        df_nomear['paisagem'][i] = str(df_nomear['fisionomia'][i]) + ' ' + str(df_nomear['complementos'][i]) + ' sobre ambiente ' + str(df_nomear['ambiente'][i]) + ', influenciado por ' + perturbacao_final
+
+    return df_nomear
+
+
