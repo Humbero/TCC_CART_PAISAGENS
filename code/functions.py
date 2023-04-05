@@ -111,7 +111,7 @@ def paisagem_nome(df_entrada):
         desmatamento = df_nomear['desmatamento'][i]
         pastoreio = df_nomear['pastoreio/herbivoria'][i]
         inundacao = df_nomear['inundação'][i]
-        perturbacao_final = ''
+        perturbacao_final = []
 
 
         ##teste de classificação para as duas perturbações mais influentes, começando pelo caso 0, onde nenhuma perturbação foi identificada
@@ -134,23 +134,21 @@ def paisagem_nome(df_entrada):
 
                 if n == 1:
                     texto_add = 'leve'
-
+                    
                 elif n == 2:
                     texto_add = 'moderada'
-
+                    
                 elif n == 3:
                     texto_add = 'severa'
-
+               
                 else:
                     texto_add = 'ausente'
-
-            perturbacao_final += f'{chave} {texto_add}, '
-
-            perturbacao_final = perturbacao_final[:-2]            
+                
+                perturbacao_final.append(f'{chave} {texto_add}')           
 
         #etapa 04 composição do nome e aplicação no dataframe em sua respectiva coluna 
-        df_nomear['paisagem'][i] = str(df_nomear['fisionomia'][i]) + ' ' + str(df_nomear['complementos'][i]) + ' sobre ambiente ' + str(df_nomear['ambiente'][i]) + ', influenciado por ' + perturbacao_final
-
+        df_nomear.loc[i,'paisagem'] = str(df_nomear['fisionomia'][i]) + ' ' + str(df_nomear['complementos'][i]) + ' sobre ambiente ' + str(df_nomear['ambiente'][i]) + ', influenciado por ' + str(perturbacao_final[0])+ ' e '+ str(perturbacao_final[1])
+       
     return df_nomear
 
 
