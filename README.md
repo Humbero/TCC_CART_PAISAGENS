@@ -1,4 +1,4 @@
-# TCC_CART_PAISAGENS
+# TRABALHO DE CONCLUSÃO DE CURSO COM USO DE CARTOGRAFIA DE PAISAGENS
 Trabalho de conclusão do Bacharealdo em Geografia unindo cartografia de paisagens e métodos de padronização e limpeza de dados(baseado em ETL). O presente trabalho tem o objetivo de otimizar etapas na aplicação da técnica de cartografia de paisagens sugerida por Lucas Costas de Souza Cavalcanti no livro 'Cartografia de paisagens - fundamentos'(2° edução, 2018).
 Este ensaio será utilizado como base a construção de um plug-in para o software de geoprocessamento Qgis, caso  o prezado leitor possua alguma sugestão ou queira contribuiro com o projeto, basta entrar em contato, dese já, agradeço.
 
