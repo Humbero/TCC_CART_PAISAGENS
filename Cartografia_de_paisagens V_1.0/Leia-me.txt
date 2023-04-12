@@ -1,0 +1,3 @@
+Para executar a aoplicação, basta acessar a pasta "main" e sem seguida
+executar o arquivo "main.exe", assim que for executado abrirá a tela inicial
+em alguns instantes. Em caso de dúvidas entrar em contato pelo link:https://mono.direct/hca_contact

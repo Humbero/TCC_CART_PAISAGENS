@@ -5,7 +5,7 @@ Project: Otimização de etapas em cartografia de paisagens
 
 #imports
 import pandas as pd
-import re
+import math
 import geopandas as gpd
 from shapely.geometry import Point
 import PySimpleGUI as sg
@@ -85,7 +85,7 @@ def paisagem_nome(df_entrada):
 
         
         #Validando que a paisagem possua as informações mínimas a composição da paisagem em cada coluna de acordo com o padrão da ficha de campo e seus respectivos itens de menor tamaho
-        if not df_nomear['fisionomia'][i] or len(df_nomear['fisionomia'][i]) < 7 or not df_nomear['complementos'][i] or len(df_nomear['complementos'][i]) < 5 or not df_nomear['ambiente'][i] or len(df_nomear['ambiente'][i]) < 4:
+        if pd.isna(df_nomear['fisionomia'][i]) or len(df_nomear['fisionomia'][i]) < 7 or pd.isna(df_nomear['complementos'][i]) or len(df_nomear['complementos'][i]) < 5 or pd.isna(df_nomear['ambiente'][i]) or len(df_nomear['ambiente'][i]) < 4:
 
 
             df_nomear.loc[i,'paisagem'] = 'dados insuficentes para nomenclatura'
@@ -161,7 +161,7 @@ def leitura_r():
            [sg.Button('Ok'), sg.Button('Sair')]
            ]
     
-    abertura = sg.Window('abertura',layout_abertura)
+    abertura = sg.Window('Abertura de arquivo CSV',layout_abertura)
 
     while True:
 
@@ -222,7 +222,7 @@ def salvar_w():
            [sg.Button('Ok'), sg.Button('Sair')]
            ]
     
-    salvamento = sg.Window('salvamento',layout_salvamento)
+    salvamento = sg.Window('Salvar em GEOPACKAGE',layout_salvamento)
 
     while True:
 

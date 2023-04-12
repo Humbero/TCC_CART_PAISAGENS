@@ -23,11 +23,10 @@ layout_menu = [
           [sg.Text('Aplicar sugestões de nome a paisagem baseado na proposta de Cavalcanti,L.C.,2018:')],
           [sg.Button('Sugerir nome da paisagem e salvar')],
           [sg.Text('Cria arquivo GEOPACKGE sem a aplicação da metodologia:')],
-          [sg.Button('Salvar como GEOPACKGE direto do arquivo carregado')],
           [sg.Button('Sair')]
           ]
 
-window = sg.Window('Minha janela', layout_menu)
+window = sg.Window('Cartografia de Paisagens', layout_menu)
 
 
 
@@ -53,11 +52,7 @@ while True:
         caminho_salvamento = fun.salvar_w()
         fun.creat_geopackge(df_rename,caminho_salvamento)
 
-    #salvamento sem sugestão de nome
-    elif event == 'Salvar como GEOPACKGE direto do arquivo carregado':
-        
-        caminho_salvamento = fun.salvar_w()
-        fun.creat_geopackge(df_padronizado,caminho_salvamento)
+   
 
 
 
