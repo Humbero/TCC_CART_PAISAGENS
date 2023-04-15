@@ -51,8 +51,3 @@ while True:
         df_rename = fun.paisagem_nome(df_padronizado)
         caminho_salvamento = fun.salvar_w()
         fun.creat_geopackge(df_rename,caminho_salvamento)
-
-   
-
-
-

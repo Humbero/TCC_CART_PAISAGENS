@@ -10,11 +10,11 @@ import geopandas as gpd
 from shapely.geometry import Point
 import PySimpleGUI as sg
 
-#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------------
 
-#função para abertura do arquivo csv e carga do DataFrame no main
-#Entradas da função: nenhuma
-#Retorno da função: dataframe codificado em utf-8
+'''função para abertura do arquivo csv e carga do DataFrame no main
+-Entradas da função: caminho onde está o arquivo e nome do mesmo com extensão
+-Retorno da função: dataframe codificado em utf-8'''
 def open_csv(caminho_e_nome_r):
 
     #carga do csv em um DataFrame 
@@ -23,11 +23,12 @@ def open_csv(caminho_e_nome_r):
     #retornando ao main o dataframe carregado
     return df_main
 
-#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------
 
-#Função para criação de arquivo do tipo geopackge baseando-se em um dataframe existente que será passado como parâmetro de entrada
-#entradas da função: dataframe contendo colunas 'latitude' e 'longitude'
-#Retrono da função: mensagem de confirmação
+'''Função para criação de arquivo do tipo geopackge baseando-se em um dataframe
+existente que será passado como parâmetro de entrada
+-entradas da função: dataframe contendo colunas 'latitude' e 'longitude'
+-Retrono da função: mensagem de confirmação'''
 def creat_geopackge(df_entrada,caminho_e_nome_w):
 
     #Criação da geometria a ser utilizada na produção do arquivo shape, neste caso a geometria é do tipo Point, onde são passados como x,y respectivamente as coordenadas de longitude e latitude
@@ -40,13 +41,11 @@ def creat_geopackge(df_entrada,caminho_e_nome_w):
     #chamada do método .to_file para criação do arquivo com base no geodataframe criado anteriormente
     gdf_point.to_file(r'{}'.format(caminho_e_nome_w+'.gpkg'), driver='GPKG', encoding= 'utf-8')
 
-    
+#------------------------------------------------------------------------------------------------------------
 
-#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-#Função para validar os dados do data frame
-#Entrada fa função: dataframe
-#Retorno da função: dataframe padrinizado
+'''Função para validar os dados do dataframe
+-Entrada fa função: dataframe
+-Retorno da função: dataframe padrinizado'''
 def validar_dados_df(df_validacao):
 
     df_valido = df_validacao
@@ -68,11 +67,12 @@ def validar_dados_df(df_validacao):
 
     return df_valido
 
-#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------
 
-#Função para composição de sugestões de nomenclatura as parcelas coletadas em campo seguindo o método constante no livro de cartografia de paisagens (Cavalcanti,L.C.S, 2018)
-#Entrada da função: Dataframe
-#retorno da função: dataframe com adição da coluna paisagem com as sugestões de nomenclatura da paisagem
+'''Função para composição de sugestões de nomenclatura as parcelas coletadas em campo 
+seguindo o método constante no livro de cartografia de paisagens (Cavalcanti,L.C.S, 2018)
+-Entrada da função: Dataframe
+-retorno da função: dataframe com adição da coluna paisagem com as sugestões de nomenclatura da paisagem'''
 def paisagem_nome(df_entrada):
 
     df_nomear = df_entrada
@@ -141,11 +141,11 @@ def paisagem_nome(df_entrada):
         
     return df_nomear
 
-#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------
 
-#função para coletar dados prévios para abertura de csv
-#Entrada da função: nenhuma
-#saída da função: caminho do arquivo e nome
+'''função para coletar dados prévios para abertura de csv
+-Entrada da função: nenhuma
+-saída da função: caminho do arquivo e nome'''
 def leitura_r():
     
     #variaveis de universo local
@@ -202,11 +202,11 @@ def leitura_r():
     
         return caminho_final
 
-#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------
 
-#função para coletar dados prévios para salvamento 
-#Entrada da função: nenhuma
-#saída da função: caminho do arquivo e nome para salvamento
+'''função para coletar dados prévios para salvamento 
+-Entrada da função: nenhuma
+-saída da função: caminho do arquivo e nome para salvamento'''
 def salvar_w():
     
     #variaveis de universo local
