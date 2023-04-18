@@ -18,11 +18,10 @@ df_rename = ''
 layout_menu = [
           [sg.Text('Bem vindo a ferramento de otimização de etapas em cartogafia de paisagens')],
           [sg.Text('Escolha uma função:')],
-          [sg.Text('Carregar dados do ficha sugerida em CSV e realizar a padronização dos dados:')],
+          [sg.Text('Carregar dados da ficha sugerida em CSV e realizar a padronização dos dados:')],
           [sg.Button('Carregar arquivo')],
           [sg.Text('Aplicar sugestões de nome a paisagem baseado na proposta de Cavalcanti,L.C.,2018:')],
           [sg.Button('Sugerir nome da paisagem e salvar')],
-          [sg.Text('Cria arquivo GEOPACKGE sem a aplicação da metodologia:')],
           [sg.Button('Sair')]
           ]
 
