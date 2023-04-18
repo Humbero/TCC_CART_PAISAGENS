@@ -17,7 +17,7 @@ import PySimpleGUI as sg
 -Retorno da função: dataframe codificado em utf-8'''
 def open_csv(caminho_e_nome_r):
 
-    #carga do csv em um DataFrame 
+    #caregamento do arquivo csv em um variável do tipo DataFrame 
     df_main = pd.read_csv(caminho_e_nome_r, encoding='utf-8', sep=';')
 
     #retornando ao main o dataframe carregado
@@ -27,18 +27,18 @@ def open_csv(caminho_e_nome_r):
 
 '''Função para criação de arquivo do tipo geopackge baseando-se em um dataframe
 existente que será passado como parâmetro de entrada
--entradas da função: dataframe contendo colunas 'latitude' e 'longitude'
--Retrono da função: mensagem de confirmação'''
+-entradas da função: dataframe contendo colunas 'latitude' e 'longitude', caminho e nome de salvamento do arquivo GEOPACKAGE
+-Retrono da função: arquivo ao usuário'''
 def creat_geopackge(df_entrada,caminho_e_nome_w):
 
-    #Criação da geometria a ser utilizada na produção do arquivo shape, neste caso a geometria é do tipo Point, onde são passados como x,y respectivamente as coordenadas de longitude e latitude
-    #extraidas do csv (OBS: o nome das colunas deve ser igual ao nome apresentado na coluna do dataframe de entrada, por isso utilizar o arquivo csv definido como padrão de entrada no programa)
+    #Criação da geometria do tipo Point, onde são passados como x,y respectivamente as coordenadas de longitude e latitude
+    #OBS: o nome das colunas deve ser igual ao nome apresentado na coluna do dataframe
     geometry = [Point(xy) for xy in zip(df_entrada['longitude'], df_entrada['latitude'])]
 
-    #criação de dataframe contendo dados geográficos passando os parâmetros de geometria e dataframe de entrada da função
+    #criação do geodataframe contendo dados geográficos passando os parâmetros de geometria e dataframe de entrada da função
     gdf_point = gpd.GeoDataFrame(df_entrada, geometry= geometry)
 
-    #chamada do método .to_file para criação do arquivo com base no geodataframe criado anteriormente
+    #chamada do método .to_file para criação do arquivo com base no geodataframe definida anteriormente
     gdf_point.to_file(r'{}'.format(caminho_e_nome_w+'.gpkg'), driver='GPKG', encoding= 'utf-8')
 
 #------------------------------------------------------------------------------------------------------------
@@ -85,7 +85,7 @@ def paisagem_nome(df_entrada):
 
         
         #Validando que a paisagem possua as informações mínimas a composição da paisagem em cada coluna de acordo com o padrão da ficha de campo e seus respectivos itens de menor tamaho
-        if pd.isna(df_nomear['fisionomia'][i]) or len(df_nomear['fisionomia'][i]) < 7 or pd.isna(df_nomear['complementos'][i]) or len(df_nomear['complementos'][i]) < 5 or pd.isna(df_nomear['ambiente'][i]) or len(df_nomear['ambiente'][i]) < 4:
+        if pd.isna(df_nomear['fisionomia'][i]) or len(df_nomear['fisionomia'][i]) < 7 or pd.isna(df_nomear['ambiente'][i]) or len(df_nomear['ambiente'][i]) < 4:
 
 
             df_nomear.loc[i,'paisagem'] = 'dados insuficentes para nomenclatura'
@@ -137,8 +137,13 @@ def paisagem_nome(df_entrada):
                     perturbacao_final.append(f'{chave} {texto_add}')           
 
             #etapa 04 composição do nome e aplicação no dataframe em sua respectiva coluna 
-            df_nomear.loc[i,'paisagem'] = str(df_nomear['fisionomia'][i]) + ' ' + str(df_nomear['complementos'][i]) + ' sobre ambiente ' + str(df_nomear['ambiente'][i]) + ', influenciado por ' + str(perturbacao_final[0])+ ' e '+ str(perturbacao_final[1])
-        
+            if pd.isna(df_nomear['complementos'][i]) or len(df_nomear['complementos'][i]) < 5 :
+
+                df_nomear.loc[i,'paisagem'] = str(df_nomear['fisionomia'][i]) + ' ' + ' sobre ambiente ' + str(df_nomear['ambiente'][i]) + ', influenciado por ' + str(perturbacao_final[0])+ ' e '+ str(perturbacao_final[1])
+            
+            else:
+
+                df_nomear.loc[i,'paisagem'] = str(df_nomear['fisionomia'][i]) + ' ' + str(df_nomear['complementos'][i]) + ' sobre ambiente ' + str(df_nomear['ambiente'][i]) + ', influenciado por ' + str(perturbacao_final[0])+ ' e '+ str(perturbacao_final[1])
     return df_nomear
 
 #-----------------------------------------------------------------------------------------------------------
