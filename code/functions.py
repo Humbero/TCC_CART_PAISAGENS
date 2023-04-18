@@ -85,7 +85,7 @@ def paisagem_nome(df_entrada):
 
         
         #Validando que a paisagem possua as informações mínimas a composição da paisagem em cada coluna de acordo com o padrão da ficha de campo e seus respectivos itens de menor tamaho
-        if pd.isna(df_nomear['fisionomia'][i]) or len(df_nomear['fisionomia'][i]) < 7 or pd.isna(df_nomear['ambiente'][i]) or len(df_nomear['ambiente'][i]) < 4:
+        if pd.isna(df_nomear['fisionomia'][i]) or len(df_nomear['fisionomia'][i]) < 7 or pd.isna(df_nomear['fenologia'][i]) or len(df_nomear['fenologia'][i]) < 7 or pd.isna(df_nomear['ambiente'][i]) or len(df_nomear['ambiente'][i]) < 4:
 
 
             df_nomear.loc[i,'paisagem'] = 'dados insuficentes para nomenclatura'
@@ -136,14 +136,16 @@ def paisagem_nome(df_entrada):
                     
                     perturbacao_final.append(f'{chave} {texto_add}')           
 
-            #etapa 04 composição do nome e aplicação no dataframe em sua respectiva coluna 
+            #etapa 04 composição do nome e aplicação no dataframe em sua respectiva coluna
+            #OBS; incluso teste para validar se a coluna 'complementos' está ou não vazia
             if pd.isna(df_nomear['complementos'][i]) or len(df_nomear['complementos'][i]) < 5 :
 
-                df_nomear.loc[i,'paisagem'] = str(df_nomear['fisionomia'][i]) + ' ' + ' sobre ambiente ' + str(df_nomear['ambiente'][i]) + ', influenciado por ' + str(perturbacao_final[0])+ ' e '+ str(perturbacao_final[1])
-            
+                df_nomear.loc[i,'paisagem'] = str(df_nomear['fisionomia'][i]) + ' ' + str(df_nomear['fenologia'][i]) + ' ' + ' sobre ambiente ' + str(df_nomear['ambiente'][i]) + ', influenciado por ' + str(perturbacao_final[0])+ ' e '+ str(perturbacao_final[1])
+         
             else:
 
-                df_nomear.loc[i,'paisagem'] = str(df_nomear['fisionomia'][i]) + ' ' + str(df_nomear['complementos'][i]) + ' sobre ambiente ' + str(df_nomear['ambiente'][i]) + ', influenciado por ' + str(perturbacao_final[0])+ ' e '+ str(perturbacao_final[1])
+                df_nomear.loc[i,'paisagem'] = str(df_nomear['fisionomia'][i]) + ' ' + str(df_nomear['fenologia'][i]) + ' ' + str(df_nomear['complementos'][i]) + ' sobre ambiente ' + str(df_nomear['ambiente'][i]) + ', influenciado por ' + str(perturbacao_final[0])+ ' e '+ str(perturbacao_final[1])
+    
     return df_nomear
 
 #-----------------------------------------------------------------------------------------------------------
