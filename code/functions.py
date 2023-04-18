@@ -163,8 +163,10 @@ def leitura_r():
     layout_abertura = [
            [sg.Text('Digite o caminho onde o arquivo está armazenado(ex: C:\Pastas\pasta):')],
            [sg.InputText()],
+           [sg.Text(' ')],
            [sg.Text('Digite o nome do arquivo e a respectiva extensão:')],
            [sg.InputText()],
+           [sg.Text(' ')],
            [sg.Button('Ok'), sg.Button('Sair')]
            ]
     
@@ -187,6 +189,7 @@ def leitura_r():
         confirmacao = [
                     [sg.Text(f'O caminho do arquivo é: {caminho}')],
                     [sg.Text(f'O nome arquivo é: {nome}')],
+                    [sg.Text(' ')],
                     [sg.Button('Voltar'), sg.Button('Ok')]]
         
         # Cria a janela da segunda tela
@@ -224,8 +227,10 @@ def salvar_w():
     layout_salvamento = [
            [sg.Text('Digite o caminho onde deseja salvar o arquivo GEOPACKAGE(ex: C:\Pastas\pasta):')],
            [sg.InputText()],
+           [sg.Text(' ')],
            [sg.Text('Digite o nome que deseja colocar no GEOPACKAGE:')],
            [sg.InputText()],
+           [sg.Text(' ')],
            [sg.Button('Ok'), sg.Button('Sair')]
            ]
     
@@ -247,6 +252,7 @@ def salvar_w():
         confirmacao = [
                     [sg.Text(f'O caminho do arquivo será: {caminho}')],
                     [sg.Text(f'O nome arquivo será: {nome}')],
+                    [sg.Text(' ')],
                     [sg.Button('Voltar'), sg.Button('Ok')]]
         
         # Cria a janela da segunda tela
