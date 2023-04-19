@@ -1,7 +1,7 @@
 import functions as fc
 import pandas as pd
 
-df_inicial = pd.read_csv(r'{}'.format('C:\TCC\PADRAO_DE_CARGA_new.csv'), encoding='UTF-8', sep=',')
+df_inicial = pd.read_csv(r'{}'.format('arquivo de teste'), encoding='UTF-8', sep=',')
 
 print(df_inicial.head(5))
 print(2*'\n')
