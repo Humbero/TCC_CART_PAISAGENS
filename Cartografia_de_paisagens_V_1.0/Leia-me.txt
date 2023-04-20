@@ -1,3 +1,18 @@
+Por restrições de tamanho de upload de arquivos na plataforma do github o 
+presente programa foi compactado e divido, para a sua execução basta seguir
+as etapas aqui demonstradas:
+
+1- baixa e instalar o aplicativo 7zip na versão compatível com o seu computador link par o download: https://www.7-zip.org/
+
+2- Após a instalação do 7zip acessar a pasta "Cartografia_de_paisagens_V_1.0" onde encontra-se este arquivo "leia-me.txt" 
+
+3- clicar com o botão direito sobre o arquivo "Cartografia_de_paisagens.zip.001", em seguida ir com o mouse até a guia "7-Zip >" e na próxima guia aberta selecionar a opção "Extrair aqui" 
+
+4-Executar o arquivo "Cartografia_de_paisagens.exe", assim que for executado abrirá a tela inicial do programa em alguns instantes. 
+
+Em caso de dúvidas entrar em contato pelo link:https://mono.direct/hca_contact
+=======
 Para executar a aoplicação, basta acessar a pasta "main" e sem seguida
 executar o arquivo "main.exe", assim que for executado abrirá a tela inicial
 em alguns instantes. Em caso de dúvidas entrar em contato pelo link:https://mono.direct/hca_contact
+
